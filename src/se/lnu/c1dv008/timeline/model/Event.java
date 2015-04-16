@@ -1,24 +1,21 @@
 package se.lnu.c1dv008.timeline.model;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@DatabaseTable(tableName = "events")
+@Entity
+@Table(name = "events")
 public class Event {
 
-	@DatabaseField(generatedId = true, columnName = "eventId")
+	@Id
 	public long id;
 
-	@DatabaseField
 	public long timelineId;
-
-	@DatabaseField
-	public String name, description;
-
-	@DatabaseField
-	public long startTime, endTime;
-
-	@DatabaseField
+	public String name;
+	public String description;
+	public long startTime;
+	public long endTime;
 	public String color;
 
 	public Event() {

@@ -1,18 +1,17 @@
 package se.lnu.c1dv008.timeline.model;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@DatabaseTable(tableName = "timelines")
+@Entity
+@Table(name = "timelines")
 public class Timeline {
 
-	@DatabaseField(generatedId = true, columnName = "timelineId")
+	@Id
 	public long id;
 
-	@DatabaseField
 	public String name;
-
-	@DatabaseField
 	public String description;
 
 	public Timeline() {
