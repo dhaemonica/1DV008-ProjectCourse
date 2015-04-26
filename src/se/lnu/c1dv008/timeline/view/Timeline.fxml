@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.TimelineController">
+   <children>
+      <VBox prefHeight="30.0" prefWidth="1200.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem fx:id="newTimeline" mnemonicParsing="false" onAction="#newTimelineCreate" text="New Timeline" />
+                        <MenuItem fx:id="openTimeline" mnemonicParsing="false" text="Open Timeline" />
+                        <MenuItem fx:id="timelineHelp" mnemonicParsing="false" text="Help" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+      <VBox fx:id="vboxForGridpane" layoutX="1.0" layoutY="30.0" maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1200.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></VBox>
+   </children>
+</AnchorPane>

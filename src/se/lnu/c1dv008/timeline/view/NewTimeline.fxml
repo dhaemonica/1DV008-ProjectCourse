@@ -62,11 +62,11 @@
                   <TextField promptText="Timeline title" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Spinner GridPane.rowIndex="2">
+            <!-- <Spinner GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
-            </Spinner>
+            </Spinner> -->
          </children>
       </GridPane>
    </children>

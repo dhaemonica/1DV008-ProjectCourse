@@ -5,14 +5,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import se.lnu.c1dv008.timeline.model.TestString;
-
 public class DB {
 
 	private static SessionFactory sessionFactory;
 	private static Session session;
 
-	private static TestStringDao testStringDao;
+	private static EventDAO eventDao;
+	private static TimelineDAO timelineDao;
 
 	static {
 		try {
@@ -26,28 +25,24 @@ public class DB {
 		}
 	}
 
-	public static Session getSession() {
+	private static Session getSession() {
 		if (session == null)
 			session = sessionFactory.openSession();
 
 		return session;
 	}
 
-	public static void events() {
+	public static EventDAO events() {
+		if (eventDao == null)
+			eventDao = new EventDAO(getSession());
 
+		return eventDao;
 	}
 
-	public static TestStringDao testStrings() {
-		if (testStringDao == null)
-			testStringDao = new TestStringDao();
+	public static TimelineDAO timelines() {
+		if (timelineDao == null)
+			timelineDao = new TimelineDAO(getSession());
 
-		testStringDao.save(new TestString("ololo"));
-		testStringDao.save(new TestString("ololo2"));
-
-		return testStringDao;
-	}
-
-	public static void timelines() {
-
+		return timelineDao;
 	}
 }
