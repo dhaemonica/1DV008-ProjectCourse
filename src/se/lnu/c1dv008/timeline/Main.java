@@ -1,14 +1,15 @@
 package se.lnu.c1dv008.timeline;
-	
-import se.lnu.c1dv008.timeline.view.CalendarView;
+
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import se.lnu.c1dv008.timeline.view.CalendarView;
 
 
 public class Main extends Application {
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {

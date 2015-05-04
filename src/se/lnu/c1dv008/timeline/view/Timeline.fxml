@@ -24,9 +24,10 @@
             </MenuBar>
          </children>
       </VBox>
-      <VBox fx:id="vboxForGridpane" layoutX="1.0" layoutY="30.0" maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1200.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding></VBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="29.0" prefHeight="771.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <content>
+            <VBox fx:id="vboxForGridpane" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

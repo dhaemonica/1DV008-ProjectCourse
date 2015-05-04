@@ -1,13 +1,6 @@
 package se.lnu.c1dv008.timeline.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "timelines")
@@ -18,23 +11,35 @@ public class Timeline {
 	public long id;
 
 	public String name;
-	public String description;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 
 	public Timeline(){
 		
 	}
 
-	public Timeline(String name, String description) {
+	public Timeline(String name) {
 		this.name = name;
-		this.description = description;
 	}
 	
 	
-	public void setTimeBounds(Date startDate, Date endDate){
+	public void setTimeBounds(String startDate, String endDate){
 		this.startDate=startDate;
 		this.endDate=endDate;
 	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public String getTitle() {
+		return name;
+	}
+
+	public long getId() { return id; }
 
 }

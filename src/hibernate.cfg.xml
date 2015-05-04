@@ -12,6 +12,7 @@
    <property name="hibernate.hbm2ddl.auto">update</property>
    <property name="show_sql">false</property>
    <property name="hibernate.current_session_context_class">thread</property>
-   <mapping class="se.lnu.c1dv008.timeline.model.TestString"/>
+   <mapping class="se.lnu.c1dv008.timeline.model.Event"/>
+      <mapping class="se.lnu.c1dv008.timeline.model.Timeline"/>
 </session-factory>
 </hibernate-configuration>

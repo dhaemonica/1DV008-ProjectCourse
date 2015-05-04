@@ -1,15 +1,11 @@
 package se.lnu.c1dv008.timeline.dao;
 
 
-import java.util.List;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-
 import se.lnu.c1dv008.timeline.model.Event;
+
+import java.util.List;
 
 public class EventDAO implements DAO<Event> {
 
@@ -41,7 +37,7 @@ public class EventDAO implements DAO<Event> {
 	}
 
 	@Override
-	public Event findById(String id) {
+	public Event findById(long id) {
 		return (Event) session.get(Event.class, id);
 	}
 

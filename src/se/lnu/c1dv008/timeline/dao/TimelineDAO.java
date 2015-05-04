@@ -1,12 +1,11 @@
 package se.lnu.c1dv008.timeline.dao;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import se.lnu.c1dv008.timeline.model.Event;
 import se.lnu.c1dv008.timeline.model.Timeline;
+
+import java.util.List;
 
 public class TimelineDAO implements DAO<Timeline> {
 
@@ -38,7 +37,7 @@ public class TimelineDAO implements DAO<Timeline> {
 	}
 
 	@Override
-	public Timeline findById(String id) {
+	public Timeline findById(long id) {
 		return (Timeline) session.get(Timeline.class, id);
 	}
 
