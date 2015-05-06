@@ -40,6 +40,10 @@ public class Timeline {
 		return name;
 	}
 
+	public void setTitle(String title) {
+		this.name = title;
+	}
+
 	public long getId() { return id; }
 
 }

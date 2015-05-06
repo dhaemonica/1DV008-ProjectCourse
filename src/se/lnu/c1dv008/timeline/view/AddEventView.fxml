@@ -16,8 +16,9 @@
         <rowConstraints>
             <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="131.0" minHeight="3.0" prefHeight="59.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="329.0" minHeight="10.0" prefHeight="255.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="131.0" minHeight="3.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="329.0" minHeight="10.0" prefHeight="228.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="85.0" minHeight="9.0" prefHeight="53.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -26,9 +27,9 @@
                   <Font name="Ubuntu" size="42.0" />
                </font>
             </Label>
-            <DatePicker fx:id="addEventStartDate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <DatePicker fx:id="addEventStartDate" onAction="#setStartdate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <DatePicker fx:id="addEventEndDate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextArea fx:id="addEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <TextArea fx:id="addEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <font>
                   <Font name="Ubuntu" size="19.0" />
                </font>
@@ -36,7 +37,7 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </GridPane.margin>
             </TextArea>
-            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <children>
                   <Button fx:id="addEventCreate" mnemonicParsing="false" onMouseClicked="#onCreate" text="Create">
                      <HBox.margin>
@@ -57,7 +58,12 @@
                </children>
             </HBox>
             <TextField fx:id="addEventTitle" maxWidth="300.0" promptText="Event Title" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <ColorPicker fx:id="addEventColorPicker" promptText="Background Color" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+            <ColorPicker fx:id="addEventColorPicker" promptText="Background Color" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+            <Label fx:id="errorText" text="Please make sure all values is filled in!" textFill="RED" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Ubuntu" size="18.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
    </children>

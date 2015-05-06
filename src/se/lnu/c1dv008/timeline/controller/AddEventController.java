@@ -1,18 +1,24 @@
 package se.lnu.c1dv008.timeline.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import se.lnu.c1dv008.timeline.dao.DB;
 import se.lnu.c1dv008.timeline.model.Event;
 import se.lnu.c1dv008.timeline.model.Timeline;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 
 /**
  * Created by otto on 2015-04-26.
  */
 public class AddEventController {
+
 
     @FXML
     private TextArea addEventDescription;
@@ -37,7 +43,9 @@ public class AddEventController {
 
     public Timeline timeline;
 
-    public TimelineController timelineController;
+    @FXML
+    private Label errorText;
+
 
 
     @FXML
@@ -45,8 +53,9 @@ public class AddEventController {
 
         Timeline time = DB.timelines().findById(timeline.getId());
 
-        if (!addEventTitle.getText().isEmpty() || addEventStartDate.getValue() != null ||
-                addEventEndDate.getValue() != null || !addEventDescription.getText().isEmpty()) {
+        if (!addEventTitle.getText().isEmpty() && addEventStartDate.getValue() != null &&
+                addEventEndDate.getValue() != null) {
+            setErrorTextVisible(false);
             Event event = new Event(addEventTitle.getText(), addEventDescription.getText(),
                     addEventStartDate.getValue().toString(), addEventEndDate.getValue().toString(),
                     toRGBCode(addEventColorPicker.getValue()), time.getId());
@@ -55,6 +64,9 @@ public class AddEventController {
             Stage stage = (Stage) addEventCreate.getScene().getWindow();
             stage.close();
 
+        }
+        else {
+                setErrorTextVisible(true);
         }
     }
 
@@ -65,9 +77,54 @@ public class AddEventController {
     }
 
     public static String toRGBCode(Color color) {
-        return String.format( "#%02X%02X%02X",
-                (int)( color.getRed() * 255 ),
-                (int)( color.getGreen() * 255 ),
-                (int)( color.getBlue() * 255 ) );
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
+
+
+
+    public final Callback<DatePicker, DateCell> dayCellFactory =
+            new Callback<DatePicker, DateCell>() {
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isBefore(
+                                    LocalDate.parse(timeline.getStartDate()))) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                            if (item.isAfter(
+                                    LocalDate.parse(timeline.getEndDate()))
+                                    ) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                        }
+                    };
+                }
+            };
+
+
+    @FXML
+    private void setStartdate(ActionEvent event) throws IOException {
+        addEventEndDate.setDayCellFactory(dayCellFactory);
+
+    }
+
+    public DatePicker getAddEventStartDate() {
+        return addEventStartDate;
+    }
+
+    public DatePicker getAddEventEndDate() {
+        return addEventEndDate;
+    }
+
+    public void setErrorTextVisible(boolean visible) {
+        errorText.setVisible(visible);
     }
 }

@@ -1,13 +1,11 @@
 package se.lnu.c1dv008.timeline.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class TimelineController implements Initializable {
 
+
     @FXML
     private MenuItem newTimeline;
 
@@ -34,36 +33,32 @@ public class TimelineController implements Initializable {
     private  VBox vboxForGridpane;
 
     @FXML
-    private MenuItem openTimeline;
-
-    @FXML
     private MenuItem timelineHelp;
 
-    @FXML
-    private TextArea textView;
 
     public static TimelineController timeLineController;
 
 
+
     @FXML
-    void newTimelineCreate(ActionEvent event) {
+    void newTimelineCreate() {
         FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("NewTimeline.fxml"));
         Parent root = null;
         try {
             root = fxmlLoader.load();
             NewTimelineController newTimelineController = fxmlLoader.getController();
-            newTimelineController.timelineController = this;
+            newTimelineController.setErrorTextVisible(false);
+
+            CalendarView.timelineController = this;
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOpacity(1);
+            stage.setTitle("Create new timeline");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        CalendarView.timelineController = this;
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOpacity(1);
-        stage.setTitle("Create new timeline");
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
 
     }
 
@@ -85,6 +80,7 @@ public class TimelineController implements Initializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         for (int i = 0; i < timelines.size(); i++) {
+            int counter = 1;
             CalendarView cv = new CalendarView();
             Timeline time = timelines.get(i);
             LocalDate tlstartDate = LocalDate.parse(time.getStartDate(), dtf);
@@ -98,8 +94,9 @@ public class TimelineController implements Initializable {
                 if (event.getTimelineId() == time.getId()) {
                     LocalDate eventStartDate = LocalDate.parse(event.getStartTime(), dtf);
                     LocalDate eventEndDate = LocalDate.parse(event.getEndTime(), dtf);
-                    cv.event(event, Period.between(tlstartDate, eventStartDate).plusDays(1).getDays(), j,
+                    cv.event(event, Period.between(tlstartDate, eventStartDate).plusDays(1).getDays(), counter,
                             Period.between(eventStartDate, eventEndDate).plusDays(1).getDays());
+                    counter++;
                 }
             }
         }

@@ -1,15 +1,9 @@
 package se.lnu.c1dv008.timeline.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-
 import org.controlsfx.control.PopOver;
-
 import se.lnu.c1dv008.timeline.dao.DB;
 import se.lnu.c1dv008.timeline.model.Event;
 
@@ -32,31 +26,32 @@ public class PopOverController {
     public TextArea popOverEventDescription;
 
     @FXML
-    public Button popOverEventUpdate;
+    public Button popOverUpdateEvent;
 
     @FXML
-    public Button popOverEventDelete;
+    public Button popOverDeleteEvent;
 
     @FXML
     public ColorPicker popOverEventColor;
 
+    public PopOver popOver;
+
     public Event event;
 
-    public TimelineController timelineController;
 
-    public PopOver popOver;
 
     @FXML
     private void onUpdateClick() {
 
 
-        Event getEvent = DB.events().findById(event.getId());
         if (!popOverEventTitle.getText().isEmpty() || popOverEventStartDate.getValue() != null ||
                 popOverEventEndDate.getValue() != null || !popOverEventDescription.getText().isEmpty()) {
-            Event event = new Event(popOverEventTitle.getText(), popOverEventDescription.getText(),
-                    popOverEventStartDate.getValue().toString(), popOverEventEndDate.getValue().toString(),
-            toRGBCode(popOverEventColor.getValue()), getEvent.getTimelineId());
-            DB.events().update(getEvent);
+            event.setName(popOverEventTitle.getText());
+            event.setDescription(popOverEventDescription.getText());
+            event.setStartTime(popOverEventStartDate.getValue().toString());
+            event.setEndTime(popOverEventEndDate.getValue().toString());
+            event.setColor(toRGBCode(popOverEventColor.getValue()));
+            DB.events().update(event);
             TimelineController.timeLineController.draw();
             popOver.hide();
         }

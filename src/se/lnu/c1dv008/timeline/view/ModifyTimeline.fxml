@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.NewTimelineController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.ModifyTimelineController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -19,17 +19,17 @@
     <RowConstraints maxHeight="157.0" minHeight="10.0" prefHeight="157.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TextField fx:id="timelineTitle" maxWidth="300.0" prefWidth="200.0" promptText="Timeline Title" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <DatePicker fx:id="timelineStartDate" onAction="#setStartdate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <DatePicker fx:id="timelineEndDate" onAction="#setEnddate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <TextField fx:id="modifyTimelineTitle" maxWidth="300.0" prefWidth="200.0" promptText="Timeline Title" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <DatePicker fx:id="modifyTimelineStartDate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <DatePicker fx:id="modifyTimelineEndDate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Label text="New Timeline" GridPane.columnSpan="2" GridPane.halignment="CENTER">
          <font>
             <Font name="Ubuntu" size="40.0" />
          </font>
       </Label>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
          <children>
-            <Button fx:id="createTimelineBtn" mnemonicParsing="false" onMouseClicked="#onCreateClick" text="Create">
+            <Button fx:id="modifyTimelineUpdateBtn" mnemonicParsing="false" onMouseClicked="#updateTimeline" text="Update">
                <font>
                   <Font name="Ubuntu" size="20.0" />
                </font>
@@ -37,7 +37,7 @@
                   <Insets bottom="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="cancelCreateTimelineBtn" mnemonicParsing="false" onMouseClicked="#onCancelClick" text="Cancel">
+            <Button fx:id="modifyTimelineDeleteBtn" mnemonicParsing="false" onMouseClicked="#deleteTimeline" text="Delete">
                <font>
                   <Font name="Ubuntu" size="20.0" />
                </font>
@@ -47,7 +47,7 @@
             </Button>
          </children>
       </HBox>
-      <Label fx:id="errorText" alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="237.0" text="Please make sure all values is filled in!" textAlignment="CENTER" textFill="RED" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+      <Label fx:id="errorText" alignment="CENTER" contentDisplay="CENTER" text="Please make sure all values is filled in!" textAlignment="CENTER" textFill="#ff000000" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
          <font>
             <Font name="Ubuntu" size="18.0" />
          </font>

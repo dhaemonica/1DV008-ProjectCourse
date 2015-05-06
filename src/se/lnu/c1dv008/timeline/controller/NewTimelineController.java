@@ -1,13 +1,15 @@
 package se.lnu.c1dv008.timeline.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import se.lnu.c1dv008.timeline.dao.DB;
 import se.lnu.c1dv008.timeline.model.Timeline;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 
 /**
@@ -33,16 +35,16 @@ public class NewTimelineController {
     @FXML
     private Label errorText;
 
-    public TimelineController timelineController;
 
     @FXML
     private void onCreateClick() {
-        if (!timelineTitle.getText().isEmpty() || timelineStartDate.getValue() != null ||
+        if (!timelineTitle.getText().equals("") && timelineStartDate.getValue() != null &&
                 timelineEndDate.getValue() != null) {
+            setErrorTextVisible(false);
             Timeline timeline = new Timeline(timelineTitle.getText());
             timeline.setTimeBounds(timelineStartDate.getValue().toString(), timelineEndDate.getValue().toString());
             DB.timelines().save(timeline);
-            timelineController.draw();
+            TimelineController.timeLineController.draw();
             Stage stage = (Stage) createTimelineBtn.getScene().getWindow();
             stage.close();
 
@@ -50,7 +52,7 @@ public class NewTimelineController {
 
         }
         else {
-            errorText.setOpacity(1);
+            setErrorTextVisible(true);
 
         }
     }
@@ -60,4 +62,71 @@ public class NewTimelineController {
         Stage stage = (Stage) cancelCreateTimelineBtn.getScene().getWindow();
         stage.close();
     }
+
+    final Callback<DatePicker, DateCell> dayCellFactory =
+            new Callback<DatePicker, DateCell>() {
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isBefore(
+                                    timelineStartDate.getValue().plusDays(1))
+                                    ) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                            if (item.isAfter(
+                                    timelineStartDate.getValue().plusYears(1))
+                                    ) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                        }
+                    };
+                }
+            };
+
+    final Callback<DatePicker, DateCell> dayCellFactory2 =
+            new Callback<DatePicker, DateCell>() {
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isBefore(
+                                    timelineEndDate.getValue().minusYears(1))
+                                    ) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                            if (item.isAfter(
+                                    timelineEndDate.getValue())
+                                    ) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                        }
+                    };
+                }
+            };
+
+    @FXML
+    private void setStartdate(ActionEvent event) throws IOException {
+        timelineEndDate.setDayCellFactory(dayCellFactory);
+
+    }
+
+    @FXML
+    private void setEnddate(ActionEvent event) throws IOException {
+        timelineStartDate.setDayCellFactory(dayCellFactory2);
+
+    }
+
+    public void setErrorTextVisible(boolean visible) {
+        errorText.setVisible(visible);
+    }
+
 }
