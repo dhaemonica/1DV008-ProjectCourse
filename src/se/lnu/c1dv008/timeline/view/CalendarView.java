@@ -4,16 +4,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -28,10 +27,10 @@ import se.lnu.c1dv008.timeline.model.Event;
 import se.lnu.c1dv008.timeline.model.Timeline;
 
 import java.io.IOException;
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CalendarView {
 
@@ -41,80 +40,97 @@ public class CalendarView {
 	public static TimelineController timelineController;
 	private PopOver popOver;
 
-
-	private final List<TimeSlot> timeSlots = new ArrayList<>();
 	private GridPane calendarView;
 
 	// Method that creates the gridpane for the timeline, arguments should speak for themselfs
 	public VBox createView(Timeline timeline, String title, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay) {
 		calendarView  = new GridPane();
+        // Set max width to maximum so it can expand with the window
+        calendarView.maxWidth(Double.MAX_VALUE);
+        calendarView.setPrefWidth(1190);
 
 		// Localdates set to start and endtime of the timeline
 		LocalDate start = LocalDate.of(startYear, startMonth, startDay);
 		LocalDate end = LocalDate.of(endYear, endMonth, endDay);
 
-		// Create the rows and columns for the gridpane
-		int rowIndex = 1;
-		for (LocalDate date = start; ! date.isAfter(end); date = date.plusDays(1)) {
-			int slotIndex = 1 ;
-
-			for (LocalDateTime startTime = date.atTime(firstSlotStart);
-					! startTime.isAfter(date.atTime(lastSlotStart));
-					startTime = startTime.plus(slotLength)) {
-
-
-				TimeSlot timeSlot = new TimeSlot(startTime, slotLength);
-				timeSlots.add(timeSlot);
+        ColumnConstraints column = new ColumnConstraints(80, 80, Double.MAX_VALUE);
+        column.setPercentWidth(100);
 
 
 
-				calendarView.add(timeSlot.getView(), rowIndex, slotIndex);
-				slotIndex++ ;
+		if (timeline.getShowVal().equals("Days")) {
+
+			// Create the rows and columns for the gridpane
+			for (LocalDate date = start; ! date.isAfter(end); date = date.plusDays(1)) {
+                calendarView.getColumnConstraints().add(column);
 			}
-			rowIndex++;
+			// Add the headers for the gridpane so this adds the day and month at the top of the gridpane
+			DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E\nMMM d");
+			int pos = 0;
+			for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+
+				Label label = new Label(date.format(dayFormatter));
+				label.setPadding(new Insets(1));
+				label.setTextAlignment(TextAlignment.CENTER);
+				GridPane.setHalignment(label, HPos.CENTER);
+				calendarView.add(label, pos, 0);
+				pos++;
+			}
 		}
+		else if (timeline.getShowVal().equals("Months")) {
 
+			// Create the rows and columns for the gridpane
+			for (LocalDate date = start; ! date.isAfter(end); date = date.plusMonths(1)) {
+				calendarView.getColumnConstraints().add(column);
+			}
+			// Add the headers for the gridpane so this adds the day and month at the top of the gridpane
+			DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy\nMMM");
+			int pos = 0;
+			for (LocalDate date = start; !date.isAfter(end); date = date.plusMonths(1)) {
 
-		
-		// Add the headers for the gridpane so this adds the day and month at the top of the gridpane
-		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E\nMMM d");
-		int pos = 1;
-		for (LocalDate date = start; ! date.isAfter(end); date = date.plusDays(1)) {
-
-			Label label = new Label(date.format(dayFormatter));
-			label.setPadding(new Insets(1));
-			label.setTextAlignment(TextAlignment.CENTER);
-			GridPane.setHalignment(label, HPos.CENTER);
-			calendarView.add(label, pos, 0);
-			pos++;
+				Label label = new Label(date.format(dayFormatter));
+				label.setPadding(new Insets(1));
+				label.setTextAlignment(TextAlignment.CENTER);
+				GridPane.setHalignment(label, HPos.CENTER);
+				calendarView.add(label, pos, 0);
+				pos++;
+			}
 		}
+		else if (timeline.getShowVal().equals("Years")) {
 
-//		int slotIndex = 1 ;
-//		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-//		for (LocalDateTime startTime = today.atTime(firstSlotStart);
-//				! startTime.isAfter(today.atTime(lastSlotStart));
-//				startTime = startTime.plus(slotLength)) {
-//			Label label = new Label(startTime.format(timeFormatter));
-//			label.setPadding(new Insets(2));
-//			label.setTextAlignment(TextAlignment.RIGHT);
-//			GridPane.setHalignment(label, HPos.RIGHT);
-//			calendarView.add(label, 0, slotIndex);
-//			slotIndex++;
-//			
-//		}
-		// Set max width to maximum so it can expand with the window
-		calendarView.maxWidth(Double.MAX_VALUE);
+            // Create the rows and columns for the gridpane
+            for (LocalDate date = start; !date.isAfter(end); date = date.plusYears(1)) {
+                calendarView.getColumnConstraints().add(column);
+            }
+
+            // Add the headers for the gridpane so this adds the day and month at the top of the gridpane
+            DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy");
+            int pos = 0;
+            for (LocalDate date = start; !date.isAfter(end); date = date.plusYears(1)) {
+
+                Label label = new Label(date.format(dayFormatter));
+                label.setPadding(new Insets(1));
+                label.setTextAlignment(TextAlignment.CENTER);
+                GridPane.setHalignment(label, HPos.CENTER);
+                calendarView.add(label, pos, 0);
+                pos++;
+            }
+        }
 
 		// Create scrollpane to add the gridpane into and the title label
 		ScrollPane scroller = new ScrollPane(calendarView);
 		scroller.maxWidth(Double.MAX_VALUE);
-        HBox displayInfo = new HBox();
+        //scroller.prefWidth(1185);
+        StackPane displayInfo = new StackPane();
         displayInfo.setAlignment(Pos.CENTER);
 		VBox vContain = new VBox();
 		Label titleLabel = new Label(title);
         Label startDateLabel = new Label(timeline.getStartDate());
         Label endDateLabel = new Label(timeline.getEndDate());
         displayInfo.getChildren().addAll(startDateLabel, titleLabel, endDateLabel);
+		displayInfo.setAlignment(titleLabel, Pos.CENTER);
+		displayInfo.setAlignment(startDateLabel, Pos.CENTER_LEFT);
+		displayInfo.setAlignment(endDateLabel, Pos.CENTER_RIGHT);
 
 		// Method to create popover when the timeline label is clicked on and load the fxml file into it
 		titleLabel.setOnMouseClicked(event -> {
@@ -131,6 +147,9 @@ public class CalendarView {
                     modifyTimelineController.modifyTimelineTitle.setText(timeline.getTitle());
                     modifyTimelineController.modifyTimelineStartDate.setValue(LocalDate.parse(timeline.getStartDate(), dtf));
                     modifyTimelineController.modifyTimelineEndDate.setValue(LocalDate.parse(timeline.getEndDate(), dtf));
+					modifyTimelineController.getModifyTimelineChoiceBox().setValue(timeline.getShowVal());
+					modifyTimelineController.setStartdate();
+					modifyTimelineController.setEnddate();
                     modifyTimelineController.time = timeline;
                     modifyTimelineController.popOver = popOver;
 
@@ -168,16 +187,16 @@ public class CalendarView {
                 root = fxmlLoader.load();
                 AddEventController addEventController = fxmlLoader.getController();
                 addEventController.timeline = timeline;
-				addEventController.getAddEventStartDate().setDayCellFactory(addEventController.dayCellFactory);
-				addEventController.getAddEventEndDate().setDayCellFactory(addEventController.dayCellFactory);
-				addEventController.setErrorTextVisible(false);
+                addEventController.setErrorTextVisible(false);
+                addEventController.setStartdate();
+                addEventController.setEnddate();
 
-				Stage stage = new Stage();
-				stage.initModality(Modality.APPLICATION_MODAL);
-				stage.setOpacity(1);
-				stage.setTitle("Add new event");
-				stage.setScene(new Scene(root));
-				stage.show();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setOpacity(1);
+                stage.setTitle("Add new event");
+                stage.setScene(new Scene(root));
+                stage.show();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -191,51 +210,12 @@ public class CalendarView {
 		// Set size of the scrollpane and add it to the vbox and then returns the vbox
 		scroller.setMinHeight(300);
         scroller.setPrefHeight(300);
-		vContain.getChildren().addAll(scroller, addEventBtn);
+        StackPane stackPaneForBtn = new StackPane(addEventBtn);
+        stackPaneForBtn.setAlignment(addEventBtn, Pos.CENTER_RIGHT);
+        stackPaneForBtn.setPadding(new Insets(5, 0, 0, 0));
+		vContain.getChildren().addAll(scroller, stackPaneForBtn);
 		vContain.setPadding(new Insets(15, 5, 15, 5));
 		return vContain;
-
-	}
-
-	// Class to create the timeslots into the gridpane
-	public static class TimeSlot {
-
-		private final LocalDateTime start ;
-		private final Duration duration ;
-		private final Region view ;
-
-
-		public TimeSlot(LocalDateTime start, Duration duration) {
-			this.start = start ;
-			this.duration = duration ;
-
-			view = new Region();
-			view.setMinSize(80, 20);
-			view.getStyleClass().add("time-slot");
-
-
-		}
-
-		// Some getters and setters
-		public LocalDateTime getStart() {
-			return start ;
-		}
-
-		public LocalTime getTime() {
-			return start.toLocalTime() ;
-		}
-
-		public DayOfWeek getDayOfWeek() {
-			return start.getDayOfWeek() ;
-		}
-
-		public Duration getDuration() {
-			return duration ;
-		}
-
-		public Node getView() {
-			return view;
-		}
 
 	}
 

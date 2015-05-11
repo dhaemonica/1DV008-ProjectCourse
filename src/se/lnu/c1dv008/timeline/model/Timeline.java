@@ -13,6 +13,7 @@ public class Timeline {
 	public String name;
 	private String startDate;
 	private String endDate;
+	private String showVal;
 
 	public Timeline(){
 		
@@ -46,4 +47,11 @@ public class Timeline {
 
 	public long getId() { return id; }
 
+	public String getShowVal() {
+		return showVal;
+	}
+
+	public void setShowVal(String showVal) {
+		this.showVal = showVal;
+	}
 }

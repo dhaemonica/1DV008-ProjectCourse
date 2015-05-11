@@ -35,6 +35,15 @@ public class NewTimelineController {
     @FXML
     private Label errorText;
 
+    @FXML
+    private ChoiceBox timelineChoiceBox;
+
+    @FXML
+    void initialize() {
+        timelineChoiceBox.getItems().addAll("Days", "Months", "Years");
+
+    }
+
 
     @FXML
     private void onCreateClick() {
@@ -43,6 +52,7 @@ public class NewTimelineController {
             setErrorTextVisible(false);
             Timeline timeline = new Timeline(timelineTitle.getText());
             timeline.setTimeBounds(timelineStartDate.getValue().toString(), timelineEndDate.getValue().toString());
+            timeline.setShowVal(timelineChoiceBox.getSelectionModel().getSelectedItem().toString());
             DB.timelines().save(timeline);
             TimelineController.timeLineController.draw();
             Stage stage = (Stage) createTimelineBtn.getScene().getWindow();
@@ -77,12 +87,6 @@ public class NewTimelineController {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #767676;");
                             }
-                            if (item.isAfter(
-                                    timelineStartDate.getValue().plusYears(1))
-                                    ) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #767676;");
-                            }
                         }
                     };
                 }
@@ -96,12 +100,6 @@ public class NewTimelineController {
                         public void updateItem(LocalDate item, boolean empty) {
                             super.updateItem(item, empty);
 
-                            if (item.isBefore(
-                                    timelineEndDate.getValue().minusYears(1))
-                                    ) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #767676;");
-                            }
                             if (item.isAfter(
                                     timelineEndDate.getValue())
                                     ) {
@@ -127,6 +125,10 @@ public class NewTimelineController {
 
     public void setErrorTextVisible(boolean visible) {
         errorText.setVisible(visible);
+    }
+
+    public ChoiceBox getTimelineChoiceBox() {
+        return this.timelineChoiceBox;
     }
 
 }

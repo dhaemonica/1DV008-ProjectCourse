@@ -18,8 +18,8 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -48,6 +48,7 @@ public class TimelineController implements Initializable {
             root = fxmlLoader.load();
             NewTimelineController newTimelineController = fxmlLoader.getController();
             newTimelineController.setErrorTextVisible(false);
+            newTimelineController.getTimelineChoiceBox().setValue("Days");
 
             CalendarView.timelineController = this;
             Stage stage = new Stage();
@@ -94,9 +95,29 @@ public class TimelineController implements Initializable {
                 if (event.getTimelineId() == time.getId()) {
                     LocalDate eventStartDate = LocalDate.parse(event.getStartTime(), dtf);
                     LocalDate eventEndDate = LocalDate.parse(event.getEndTime(), dtf);
-                    cv.event(event, Period.between(tlstartDate, eventStartDate).plusDays(1).getDays(), counter,
-                            Period.between(eventStartDate, eventEndDate).plusDays(1).getDays());
-                    counter++;
+                    if (time.getShowVal().equals("Days")) {
+
+                        cv.event(event, (int) ChronoUnit.DAYS.between(tlstartDate, eventStartDate), counter,
+                                (int) ChronoUnit.DAYS.between(eventStartDate, eventEndDate) + 1);
+                        counter++;
+                    }
+                    else if (time.getShowVal().equals("Months")) {
+                        int diffYearEvent = eventEndDate.getYear()-eventStartDate.getYear();
+                        int diffMonthEvent = diffYearEvent*12+eventEndDate.getMonthValue()-eventStartDate.getMonthValue();
+                        int diffYearTimeline = eventStartDate.getYear()-tlstartDate.getYear();
+                        int diffMonthTimeline = diffYearTimeline*12+eventStartDate.getMonthValue()-tlstartDate.getMonthValue();
+
+                        cv.event(event, diffMonthTimeline, counter,diffMonthEvent+1);
+                        counter++;
+                    }
+                    else if (time.getShowVal().equals("Years")) {
+                        int diffYearEvent = eventEndDate.getYear()-eventStartDate.getYear();
+                        int diffYearTimeline = eventStartDate.getYear()-tlstartDate.getYear();
+
+                        cv.event(event, diffYearTimeline, counter,diffYearEvent+1);
+                        counter++;
+                    }
+
                 }
             }
         }

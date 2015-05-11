@@ -49,6 +49,7 @@ public class EventController {
                 popOverController.popOverEventStartDate.setValue(LocalDate.parse(event.getStartTime(), dtf));
                 popOverController.popOverEventEndDate.setValue(LocalDate.parse(event.getEndTime(), dtf));
                 popOverController.popOverEventColor.setValue(Color.web(event.getColor()));
+                popOverController.setTimelineDates();
                 popOverController.event = event;
                 popOverController.popOver = popOver;
 

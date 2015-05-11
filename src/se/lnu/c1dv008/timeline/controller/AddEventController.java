@@ -85,7 +85,7 @@ public class AddEventController {
 
 
 
-    public final Callback<DatePicker, DateCell> dayCellFactory =
+    private final Callback<DatePicker, DateCell> dayCellFactory =
             new Callback<DatePicker, DateCell>() {
                 public DateCell call(final DatePicker datePicker) {
                     return new DateCell() {
@@ -97,6 +97,44 @@ public class AddEventController {
                                     LocalDate.parse(timeline.getStartDate()))) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #767676;");
+                            }
+                            if (item.isAfter(
+                                    LocalDate.parse(timeline.getEndDate())))
+                            {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                            if (addEventEndDate.getValue() != null) {
+                                if (item.isAfter(addEventEndDate.getValue()))
+                                {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #767676;");
+                                }
+                            }
+                        }
+                    };
+                }
+            };
+
+    private final Callback<DatePicker, DateCell> dayCellFactory2 =
+            new Callback<DatePicker, DateCell>() {
+                public DateCell call(final DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item.isBefore(
+                                    LocalDate.parse(timeline.getStartDate()))) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #767676;");
+                            }
+                            if (addEventStartDate.getValue() != null) {
+                                if (item.isBefore(addEventStartDate.getValue()))
+                                {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #767676;");
+                                }
                             }
                             if (item.isAfter(
                                     LocalDate.parse(timeline.getEndDate()))
@@ -112,8 +150,22 @@ public class AddEventController {
 
     @FXML
     private void setStartdate(ActionEvent event) throws IOException {
-        addEventEndDate.setDayCellFactory(dayCellFactory);
+        addEventStartDate.setDayCellFactory(dayCellFactory);
 
+    }
+
+    public void setStartdate() throws IOException {
+        addEventStartDate.setDayCellFactory(dayCellFactory);
+
+    }
+
+    @FXML
+    private void setEnddate(ActionEvent event) throws IOException {
+        addEventEndDate.setDayCellFactory(dayCellFactory2);
+    }
+
+    public void setEnddate() throws IOException {
+        addEventEndDate.setDayCellFactory(dayCellFactory2);
     }
 
     public DatePicker getAddEventStartDate() {

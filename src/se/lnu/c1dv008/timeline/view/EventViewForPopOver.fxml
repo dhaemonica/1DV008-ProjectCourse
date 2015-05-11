@@ -31,8 +31,8 @@
                   <Font name="Ubuntu" size="14.0" />
                </font>
             </TextField>
-            <DatePicker fx:id="popOverEventStartDate" maxWidth="150.0" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <DatePicker fx:id="popOverEventEndDate" maxWidth="150.0" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <DatePicker fx:id="popOverEventStartDate" maxWidth="150.0" onAction="#setStartdate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <DatePicker fx:id="popOverEventEndDate" maxWidth="150.0" onAction="#setEnddate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextArea fx:id="popOverEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
