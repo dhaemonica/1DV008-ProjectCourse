@@ -3,6 +3,7 @@ package se.lnu.c1dv008.timeline.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import se.lnu.c1dv008.timeline.dao.DB;
@@ -37,6 +38,12 @@ public class NewTimelineController {
 
     @FXML
     private ChoiceBox timelineChoiceBox;
+
+    private double X;
+
+    private double Y;
+
+    public Stage newTimelineStage;
 
     @FXML
     void initialize() {
@@ -129,6 +136,19 @@ public class NewTimelineController {
 
     public ChoiceBox getTimelineChoiceBox() {
         return this.timelineChoiceBox;
+    }
+
+    @FXML
+    protected void onPressed(MouseEvent event) {
+        X = newTimelineStage.getX() - event.getScreenX();
+        Y = newTimelineStage.getY() - event.getScreenY();
+    }
+
+
+    @FXML
+    protected void onDragged(MouseEvent event) {
+        newTimelineStage.setX(event.getScreenX() + X);
+        newTimelineStage.setY(event.getScreenY() + Y);
     }
 
 }

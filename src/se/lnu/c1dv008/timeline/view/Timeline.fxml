@@ -11,7 +11,7 @@
    <children>
       <VBox prefHeight="30.0" prefWidth="1200.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar>
+            <MenuBar fx:id="mainMenuBar" onMouseDragged="#onMenuDragged" onMousePressed="#onMenuPressed">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>

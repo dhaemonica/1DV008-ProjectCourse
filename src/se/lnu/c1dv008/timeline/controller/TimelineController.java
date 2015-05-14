@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import se.lnu.c1dv008.timeline.dao.DB;
 import se.lnu.c1dv008.timeline.model.Event;
 import se.lnu.c1dv008.timeline.model.Timeline;
@@ -35,6 +38,15 @@ public class TimelineController implements Initializable {
     @FXML
     private MenuItem timelineHelp;
 
+    @FXML
+    private MenuBar mainMenuBar;
+
+    public Stage mainStage;
+
+    private double X;
+
+    private double Y;
+
 
     public static TimelineController timeLineController;
 
@@ -52,8 +64,10 @@ public class TimelineController implements Initializable {
 
             CalendarView.timelineController = this;
             Stage stage = new Stage();
+            newTimelineController.newTimelineStage = stage;
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setOpacity(1);
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.setTitle("Create new timeline");
             stage.setScene(new Scene(root));
             stage.showAndWait();
@@ -121,6 +135,19 @@ public class TimelineController implements Initializable {
                 }
             }
         }
+    }
+
+    @FXML
+    protected void onMenuPressed(MouseEvent event) {
+      X = mainStage.getX() - event.getScreenX();
+      Y = mainStage.getY() - event.getScreenY();
+    }
+
+
+    @FXML
+    protected void onMenuDragged(MouseEvent event) {
+        mainStage.setX(event.getScreenX() + X);
+        mainStage.setY(event.getScreenY() + Y);
     }
 
 }

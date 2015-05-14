@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import se.lnu.c1dv008.timeline.controller.TimelineController;
 import se.lnu.c1dv008.timeline.view.CalendarView;
 
 
@@ -14,15 +16,22 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
+		Parent root = null;
+		FXMLLoader loader = new FXMLLoader(CalendarView.class.getResource("Timeline.fxml"));
 		try {
-			Parent root = FXMLLoader.load(CalendarView.class.getResource("Timeline.fxml"));
+
+			root = loader.load();
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(CalendarView.class.getResource("application.css").toExternalForm());
+
 			primaryStage.setScene(scene);
+			TimelineController timelineController = loader.getController();
+			timelineController.mainStage = primaryStage;
 			Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
 			root.maxHeight(visualBounds.getHeight());
 			root.maxWidth(visualBounds.getWidth());
 			primaryStage.setTitle("TimeLine Manager");
+			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

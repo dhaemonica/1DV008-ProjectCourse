@@ -3,6 +3,7 @@ package se.lnu.c1dv008.timeline.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -41,10 +42,16 @@ public class AddEventController {
     @FXML
     private ColorPicker addEventColorPicker;
 
-    public Timeline timeline;
-
     @FXML
     private Label errorText;
+
+    private double X;
+
+    private double Y;
+
+    public Timeline timeline;
+
+    public Stage addEventStage;
 
 
 
@@ -178,5 +185,18 @@ public class AddEventController {
 
     public void setErrorTextVisible(boolean visible) {
         errorText.setVisible(visible);
+    }
+
+    @FXML
+    protected void onPressed(MouseEvent event) {
+        X = addEventStage.getX() - event.getScreenX();
+        Y = addEventStage.getY() - event.getScreenY();
+    }
+
+
+    @FXML
+    protected void onDragged(MouseEvent event) {
+        addEventStage.setX(event.getScreenX() + X);
+        addEventStage.setY(event.getScreenY() + Y);
     }
 }

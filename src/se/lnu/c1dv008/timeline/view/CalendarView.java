@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.control.PopOver;
 import se.lnu.c1dv008.timeline.controller.AddEventController;
 import se.lnu.c1dv008.timeline.controller.EventController;
@@ -27,16 +28,11 @@ import se.lnu.c1dv008.timeline.model.Event;
 import se.lnu.c1dv008.timeline.model.Timeline;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class CalendarView {
 
-	private final LocalTime firstSlotStart = LocalTime.of(0, 0);
-	private final Duration slotLength = Duration.ofMinutes(60);
-	private final LocalTime lastSlotStart = LocalTime.of(23, 59);
 	public static TimelineController timelineController;
 	private PopOver popOver;
 
@@ -192,9 +188,11 @@ public class CalendarView {
                 addEventController.setEnddate();
 
                 Stage stage = new Stage();
+                addEventController.addEventStage = stage;
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setOpacity(1);
                 stage.setTitle("Add new event");
+                stage.initStyle(StageStyle.UNDECORATED);
                 stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException e) {
