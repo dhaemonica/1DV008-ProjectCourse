@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "timelines")
-public class Timeline {
+public class Timeline implements Comparable<Timeline>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,4 +54,11 @@ public class Timeline {
 	public void setShowVal(String showVal) {
 		this.showVal = showVal;
 	}
+
+	@Override
+	public int compareTo(Timeline o) {
+		return Long.compare(this.getId(), o.getId());
+	}
 }
+
+

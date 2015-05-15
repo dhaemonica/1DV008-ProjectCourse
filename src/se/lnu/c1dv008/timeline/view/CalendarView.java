@@ -10,21 +10,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.control.PopOver;
-import se.lnu.c1dv008.timeline.controller.AddEventController;
-import se.lnu.c1dv008.timeline.controller.EventController;
-import se.lnu.c1dv008.timeline.controller.ModifyTimelineController;
-import se.lnu.c1dv008.timeline.controller.TimelineController;
+import se.lnu.c1dv008.timeline.controller.*;
 import se.lnu.c1dv008.timeline.model.Event;
+import se.lnu.c1dv008.timeline.model.EventWithoutDuration;
 import se.lnu.c1dv008.timeline.model.Timeline;
 
 import java.io.IOException;
@@ -202,14 +197,51 @@ public class CalendarView {
 
         });
 
+        Button addEventWithoutDurationBtn = new Button("Add Event Without Duration");
+
+
+        // Method to add new event, loads the addevent view and sets some starting values into its controller and
+        // shows it in a new stage
+        addEventWithoutDurationBtn.setOnMouseClicked(event -> {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("AddEventWithoutDurationView.fxml"));
+            Parent root = null;
+            try {
+                root = fxmlLoader.load();
+                AddEventWithoutDurationController addEventWithoutDurationController = fxmlLoader.getController();
+                addEventWithoutDurationController.timeline = timeline;
+                addEventWithoutDurationController.setErrorTextVisible(false);
+                addEventWithoutDurationController.setStartdate();
+
+                Stage stage = new Stage();
+                addEventWithoutDurationController.addEventStage = stage;
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setOpacity(1);
+                stage.setTitle("Add new event");
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        });
+
 
 
 
 		// Set size of the scrollpane and add it to the vbox and then returns the vbox
 		scroller.setMinHeight(300);
         scroller.setPrefHeight(300);
-        StackPane stackPaneForBtn = new StackPane(addEventBtn);
-        stackPaneForBtn.setAlignment(addEventBtn, Pos.CENTER_RIGHT);
+        StackPane stackPaneForBtn = new StackPane();
+        HBox hboxForButtons = new HBox();
+        hboxForButtons.getChildren().addAll(addEventBtn, addEventWithoutDurationBtn);
+        hboxForButtons.setMargin(addEventWithoutDurationBtn, new Insets(0, 0, 0, 5));
+        hboxForButtons.setAlignment(Pos.CENTER_RIGHT);
+        stackPaneForBtn.getChildren().addAll(hboxForButtons);
+        stackPaneForBtn.setAlignment(hboxForButtons, Pos.CENTER_RIGHT);
+
         stackPaneForBtn.setPadding(new Insets(5, 0, 0, 0));
 		vContain.getChildren().addAll(scroller, stackPaneForBtn);
 		vContain.setPadding(new Insets(15, 5, 15, 5));
@@ -237,6 +269,23 @@ public class CalendarView {
 				e.printStackTrace();
 			}
 	}
+
+    public void eventWithoutDuration(EventWithoutDuration eventWithoutDuration, int cIndex, int rIndex){
+
+        FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("EventNoDurationView.fxml"));
+        try {
+            calendarView.add(fxmlLoader.load(), cIndex, rIndex, 1, 1);
+            EventNoDurationController eventNoDurationController = fxmlLoader.getController();
+            eventNoDurationController.eventBox.setStyle("-fx-background-color: " + eventWithoutDuration.getColor() + ";" +
+                    "-fx-border-color: black;");
+            eventNoDurationController.eventBox.setMaxWidth(Double.MAX_VALUE);
+            eventNoDurationController.eventName.setText(eventWithoutDuration.getName());
+            eventNoDurationController.eventWithoutDuration = eventWithoutDuration;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 		
 }
 

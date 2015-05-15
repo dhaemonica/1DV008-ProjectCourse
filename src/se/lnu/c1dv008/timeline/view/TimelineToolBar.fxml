@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.*?>
+<?import impl.org.controlsfx.skin.*?>
+<?import org.controlsfx.control.cell.*?>
+<?import org.controlsfx.glyphfont.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.TimelineToolbarController">
+   <children>
+      <VBox prefHeight="30.0" prefWidth="1200.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane fx:id="mainMenuBar" maxWidth="1.7976931348623157E308" onMouseDragged="#onMenuDragged" onMousePressed="#onMenuPressed" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #404040;">
+               <children>
+                  <MenuButton mnemonicParsing="false" style="-fx-background-color: transparent;" text="File" textFill="WHITE" StackPane.alignment="CENTER_LEFT">
+                    <items>
+                      <MenuItem fx:id="newTimeline" mnemonicParsing="false" onAction="#newTimelineCreate" text="New Timeline" />
+                      <MenuItem fx:id="timelineHelp" mnemonicParsing="false" text="Help" />
+                    </items>
+                     <StackPane.margin>
+                        <Insets left="5.0" top="1.0" />
+                     </StackPane.margin>
+                     <font>
+                        <Font name="Ubuntu" size="14.0" />
+                     </font>
+                  </MenuButton>
+                  <ImageView fx:id="programCloseBtn" fitHeight="150.0" fitWidth="26.0" onMouseClicked="#closeProgram" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+                     <image>
+                        <Image url="@../resources/closeButton3.png" />
+                     </image>
+                     <StackPane.margin>
+                        <Insets right="10.0" top="1.0" />
+                     </StackPane.margin>
+                  </ImageView>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+      <AnchorPane fx:id="anchorPaneForMainWindow" layoutX="330.0" layoutY="287.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0" />
+   </children>
+</AnchorPane>

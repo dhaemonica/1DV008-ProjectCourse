@@ -12,6 +12,7 @@ public class DB {
 
 	private static EventDAO eventDao;
 	private static TimelineDAO timelineDao;
+	private static EventWithoutDurationDAO eventWithoutDurationDao;
 
 	static {
 		try {
@@ -39,10 +40,21 @@ public class DB {
 		return eventDao;
 	}
 
+	public static EventWithoutDurationDAO eventsWithoutDuration() {
+		if (eventWithoutDurationDao == null)
+			eventWithoutDurationDao = new EventWithoutDurationDAO(getSession());
+
+		return eventWithoutDurationDao;
+	}
+
 	public static TimelineDAO timelines() {
 		if (timelineDao == null)
 			timelineDao = new TimelineDAO(getSession());
 
 		return timelineDao;
+	}
+
+	public static void closeSessionFactory() {
+		sessionFactory.close();
 	}
 }

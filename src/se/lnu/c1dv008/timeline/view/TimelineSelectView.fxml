@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="750.0" maxWidth="1.7976931348623157E308" prefHeight="750.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.TimelineSelectController">
+   <children>
+      <GridPane layoutY="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="81.0" minHeight="10.0" percentHeight="12.0" prefHeight="76.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="636.0" minHeight="10.0" percentHeight="73.0" prefHeight="598.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="251.0" minHeight="0.0" percentHeight="15.0" prefHeight="92.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER" style="-fx-background-color: #404040;" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+               <children>
+                  <Label text="Timelines" textFill="#e8e8e8">
+                     <font>
+                        <Font name="Ubuntu" size="34.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane hbarPolicy="NEVER" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+               <content>
+                  <VBox fx:id="vboxForSelectingTimelines" maxHeight="1.7976931348623157E308" maxWidth="200.0" />
+               </content>
+            </ScrollPane>
+            <Button fx:id="showSelectedTimelinesBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onUpdateClicked" text="Show" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Ubuntu" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="newTimelineBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#newTimelineCreate" text="New Timeline" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Ubuntu" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

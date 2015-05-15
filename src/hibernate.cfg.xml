@@ -7,12 +7,13 @@
    <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
    <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
    <property name="hibernate.connection.url">jdbc:sqlite:timeline.db</property>
-   <property name="hibernate.connection.username"></property>
-   <property name="hibernate.connection.password"></property>
-   <property name="hibernate.hbm2ddl.auto">update</property>
-   <property name="show_sql">false</property>
+   <property name="hibernate.connection.username">root</property>
+   <property name="hibernate.connection.password">root</property>
+   <!--<property name="hibernate.hbm2ddl.auto">create</property>-->
+   <property name="show_sql">true</property>
    <property name="hibernate.current_session_context_class">thread</property>
    <mapping class="se.lnu.c1dv008.timeline.model.Event"/>
+      <mapping class="se.lnu.c1dv008.timeline.model.EventWithoutDuration"/>
       <mapping class="se.lnu.c1dv008.timeline.model.Timeline"/>
 </session-factory>
 </hibernate-configuration>

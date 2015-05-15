@@ -61,7 +61,9 @@ public class NewTimelineController {
             timeline.setTimeBounds(timelineStartDate.getValue().toString(), timelineEndDate.getValue().toString());
             timeline.setShowVal(timelineChoiceBox.getSelectionModel().getSelectedItem().toString());
             DB.timelines().save(timeline);
+            TimelineSelectController.timelineSelectController.addTimelineToTimelinesSelected(timeline);
             TimelineController.timeLineController.draw();
+
             Stage stage = (Stage) createTimelineBtn.getScene().getWindow();
             stage.close();
 
