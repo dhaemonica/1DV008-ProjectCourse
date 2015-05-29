@@ -1,0 +1,91 @@
+.choice-box {
+    -fx-background-color: #666666;
+    -fx-text-fill: #e8e8e8;
+}
+
+.choice-box:hover {
+    -fx-background-color: #858585;
+}
+
+.choice-box .label {
+    -fx-text-fill: #e8e8e8;
+}
+
+.choice-box .arrow {
+    -fx-background-color: #e8e8e8;
+    -fx-size: 5;
+}
+
+.choice-box .context-menu {
+    -fx-text-fill: #e8e8e8;
+    -fx-background-color: #666666;
+}
+
+.choice-box .context-menu .label {
+    -fx-text-fill: #e8e8e8;
+}
+
+.menu-item:focused {
+  -fx-background-color: #858585;
+}
+
+.button {
+    -fx-text-fill: #e8e8e8;
+    -fx-background-color: #666666;
+}
+
+.button:hover {
+    -fx-background-color: #858585;
+}
+
+.color-picker {
+    -fx-background-color: #666666;
+}
+
+.color-picker .label {
+    -fx-text-fill: #e8e8e8;
+}
+
+.color-picker:hover {
+    -fx-background-color: #858585;
+}
+
+.color-picker .arrow-button .arrow {
+    -fx-background-color: #e8e8e8;
+}
+
+.color-palette {
+    -fx-background-color: #666666;
+
+}
+
+.color-palette > .color-picker-grid{
+    -fx-background-color: #e8e8e8;
+    -fx-padding: 0.0px;
+}
+
+.color-palette .hyperlink {
+    -fx-text-fill: #e8e8e8;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #666666;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #858585;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #666666;
+}
+
+.date-picker-popup .month-year-pane .label{
+    -fx-text-fill: #e8e8e8;
+}
+
+.date-picker-popup * .spinner .button .left-arrow,
+.date-picker-popup * .spinner .button .right-arrow {
+    -fx-background-color: #e8e8e8;
+}
+

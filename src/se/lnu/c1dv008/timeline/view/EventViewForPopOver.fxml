@@ -17,8 +17,9 @@
           <RowConstraints maxHeight="94.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="262.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="330.0" minHeight="0.0" prefHeight="210.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="330.0" minHeight="0.0" prefHeight="199.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="256.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Event" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
@@ -31,9 +32,9 @@
                   <Font name="Ubuntu" size="14.0" />
                </font>
             </TextField>
-            <DatePicker fx:id="popOverEventStartDate" maxWidth="150.0" onAction="#setStartdate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <DatePicker fx:id="popOverEventEndDate" maxWidth="150.0" onAction="#setEnddate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextArea fx:id="popOverEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+            <DatePicker fx:id="popOverEventStartDate" editable="false" maxWidth="150.0" onAction="#setStartdate" promptText="Start Date" stylesheets="@controlstyling.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <DatePicker fx:id="popOverEventEndDate" editable="false" maxWidth="150.0" onAction="#setEnddate" promptText="End Date" stylesheets="@controlstyling.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <TextArea fx:id="popOverEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" wrapText="true" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin>
@@ -43,19 +44,27 @@
             </TextArea>
             <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                <children>
-                  <ColorPicker fx:id="popOverEventColor" maxWidth="100.0">
+                  <ColorPicker fx:id="popOverEventColor" maxWidth="100.0" stylesheets="@controlstyling.css">
                      <HBox.margin>
                         <Insets right="35.0" />
                      </HBox.margin>
                   </ColorPicker>
-                  <Button fx:id="popOverUpdateEvent" mnemonicParsing="false" onMouseClicked="#onUpdateClick" text="Update Event" />
-                  <Button fx:id="popOverDeleteEvent" mnemonicParsing="false" onMouseClicked="#onDeleteClick" text="Delete Event">
+                  <Button fx:id="popOverUpdateEvent" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onUpdateClick" stylesheets="@controlstyling.css" text="Update Event" />
+                  <Button fx:id="popOverDeleteEvent" cancelButton="true" mnemonicParsing="false" onMouseClicked="#onDeleteClick" stylesheets="@controlstyling.css" text="Delete Event">
                      <HBox.margin>
                         <Insets left="10.0" right="15.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
+            <Label text="(Rightclick to close)" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets right="15.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Ubuntu" size="12.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
    </children>

@@ -41,8 +41,6 @@ public class PopOverForNoDurationEventsController {
 
     public EventWithoutDuration eventWithoutDuration;
 
-
-
     @FXML
     private void onUpdateClick() {
 

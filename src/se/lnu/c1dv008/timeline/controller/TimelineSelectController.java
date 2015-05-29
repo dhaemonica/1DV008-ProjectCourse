@@ -19,6 +19,7 @@ import se.lnu.c1dv008.timeline.model.Timeline;
 import se.lnu.c1dv008.timeline.view.CalendarView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -37,10 +38,15 @@ public class TimelineSelectController {
     private Label selectingTimelinesTitle;
 
     @FXML
-    private Button updateSelectedTimelinesBtn;
+    private Button showSelectedTimelinesBtn;
+
+    @FXML
+    private Button newTimelineBtn;
 
 
     private static TreeSet<Timeline> timelinesSelected = new TreeSet<>();
+
+    private List<Timeline> timelines = new ArrayList<>();
 
 
     public static TimelineSelectController timelineSelectController;
@@ -50,6 +56,11 @@ public class TimelineSelectController {
     void initialize() {
         drawTimelineList();
         timelineSelectController = this;
+        showSelectedTimelinesBtn.setOnMouseEntered(event -> showSelectedTimelinesBtn.setStyle("-fx-background-color: #606060;"));
+        showSelectedTimelinesBtn.setOnMouseExited(event -> showSelectedTimelinesBtn.setStyle("-fx-background-color: #404040;"));
+
+        newTimelineBtn.setOnMouseEntered(event -> newTimelineBtn.setStyle("-fx-background-color: #606060;"));
+        newTimelineBtn.setOnMouseExited(event -> newTimelineBtn.setStyle("-fx-background-color: #404040;"));
     }
 
 
@@ -57,8 +68,10 @@ public class TimelineSelectController {
 
         vboxForSelectingTimelines.getChildren().clear();
 
-        //vboxForSelectingTimelines.setPadding(new Insets(5, 0, 0, 0));
-        List<Timeline> timelines = DB.timelines().findAll();
+        if (!timelines.isEmpty()) {
+            timelines.clear();
+        }
+        timelines = DB.timelines().findAll();
 
         for (Timeline time : timelines) {
                 RadioButton btn = new RadioButton(time.getTitle());
@@ -120,4 +133,11 @@ public class TimelineSelectController {
         timelinesSelected.add(timeline);
         drawTimelineList();
     }
+
+    public void removeFromTimelinesSelected(Timeline timeline) {
+        timelinesSelected.remove(timeline);
+        drawTimelineList();
+    }
+
+
 }

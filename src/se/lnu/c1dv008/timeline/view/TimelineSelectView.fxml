@@ -33,12 +33,12 @@
                   <VBox fx:id="vboxForSelectingTimelines" maxHeight="1.7976931348623157E308" maxWidth="200.0" />
                </content>
             </ScrollPane>
-            <Button fx:id="showSelectedTimelinesBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onUpdateClicked" text="Show" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="showSelectedTimelinesBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#onUpdateClicked" style="-fx-background-color: #404040;" text="Show" textFill="#e8e8e8" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Ubuntu" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="newTimelineBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#newTimelineCreate" text="New Timeline" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Button fx:id="newTimelineBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#newTimelineCreate" style="-fx-background-color: #404040;" text="New Timeline" textAlignment="CENTER" textFill="#e8e8e8" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="Ubuntu" size="18.0" />
                </font>

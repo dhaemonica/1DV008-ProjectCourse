@@ -10,7 +10,7 @@
 
 <VBox fx:id="eventBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#popupOnLeftClick" prefHeight="25.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.EventController">
    <children>
-      <GridPane prefHeight="104.0">
+      <GridPane fx:id="gridpaneForEvent" prefHeight="104.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -20,7 +20,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="eventName" contentDisplay="CENTER" text="Label" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
+            <Label fx:id="eventName" contentDisplay="CENTER" style="-fx-effect: dropshadow( gaussian , rgba(255,255,255, 0.5) , 0,0,1,1);" text="Label" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
                <font>
                   <Font name="Ubuntu" size="20.0" />
                </font>

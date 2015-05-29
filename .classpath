@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
@@ -15,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
 	<classpathentry kind="lib" path="lib/controlsfx-8.20.8.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,7 +1,6 @@
 package se.lnu.c1dv008.timeline.view;
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -28,66 +27,73 @@ import java.time.format.DateTimeFormatter;
 
 public class CalendarView {
 
-	public static TimelineController timelineController;
-	private PopOver popOver;
+    public static TimelineController timelineController;
+    private PopOver popOver;
+    private static Stage mainStage;
 
-	private GridPane calendarView;
+    private GridPane calendarView;
 
-	// Method that creates the gridpane for the timeline, arguments should speak for themselfs
-	public VBox createView(Timeline timeline, String title, int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay) {
-		calendarView  = new GridPane();
+    // Method that creates the gridpane for the timeline, arguments should speak for themselfs
+    public VBox createView(Timeline timeline, String title, int startYear, int startMonth,
+                           int startDay, int endYear, int endMonth, int endDay) {
+
+        calendarView = new GridPane();
+
         // Set max width to maximum so it can expand with the window
         calendarView.maxWidth(Double.MAX_VALUE);
         calendarView.setPrefWidth(1190);
+        calendarView.prefWidthProperty().bind(mainStage.widthProperty());
 
-		// Localdates set to start and endtime of the timeline
-		LocalDate start = LocalDate.of(startYear, startMonth, startDay);
-		LocalDate end = LocalDate.of(endYear, endMonth, endDay);
+        // Localdates set to start and endtime of the timeline
+        LocalDate start = LocalDate.of(startYear, startMonth, startDay);
+        LocalDate end = LocalDate.of(endYear, endMonth, endDay);
 
-        ColumnConstraints column = new ColumnConstraints(80, 80, Double.MAX_VALUE);
+        ColumnConstraints column = new ColumnConstraints();
+        column.setMinWidth(80);
         column.setPercentWidth(100);
 
 
+        if (timeline.getShowVal().equals("Days")) {
 
-		if (timeline.getShowVal().equals("Days")) {
-
-			// Create the rows and columns for the gridpane
-			for (LocalDate date = start; ! date.isAfter(end); date = date.plusDays(1)) {
+            // Create the rows and columns for the gridpane
+            for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
                 calendarView.getColumnConstraints().add(column);
-			}
-			// Add the headers for the gridpane so this adds the day and month at the top of the gridpane
-			DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E\nMMM d");
-			int pos = 0;
-			for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
+            }
+            // Add the headers for the gridpane so this adds the day and month at the top of the gridpane
+            DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("E\nMMM d");
+            int pos = 0;
+            for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
 
-				Label label = new Label(date.format(dayFormatter));
-				label.setPadding(new Insets(1));
-				label.setTextAlignment(TextAlignment.CENTER);
-				GridPane.setHalignment(label, HPos.CENTER);
-				calendarView.add(label, pos, 0);
-				pos++;
-			}
-		}
-		else if (timeline.getShowVal().equals("Months")) {
+                Label label = new Label(date.format(dayFormatter));
+                label.setPadding(new Insets(1));
+                label.setMaxWidth(Double.MAX_VALUE);
+                label.setStyle("-fx-border-color: transparent transparent black transparent;");
+                label.setTextAlignment(TextAlignment.CENTER);
+                label.setAlignment(Pos.CENTER);
+                calendarView.add(label, pos, 0);
+                pos++;
+            }
+        } else if (timeline.getShowVal().equals("Months")) {
 
-			// Create the rows and columns for the gridpane
-			for (LocalDate date = start; ! date.isAfter(end); date = date.plusMonths(1)) {
-				calendarView.getColumnConstraints().add(column);
-			}
-			// Add the headers for the gridpane so this adds the day and month at the top of the gridpane
-			DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy\nMMM");
-			int pos = 0;
-			for (LocalDate date = start; !date.isAfter(end); date = date.plusMonths(1)) {
+            // Create the rows and columns for the gridpane
+            for (LocalDate date = start; !date.isAfter(end); date = date.plusMonths(1)) {
+                calendarView.getColumnConstraints().add(column);
+            }
+            // Add the headers for the gridpane so this adds the day and month at the top of the gridpane
+            DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy\nMMM");
+            int pos = 0;
+            for (LocalDate date = start; !date.isAfter(end); date = date.plusMonths(1)) {
 
-				Label label = new Label(date.format(dayFormatter));
-				label.setPadding(new Insets(1));
-				label.setTextAlignment(TextAlignment.CENTER);
-				GridPane.setHalignment(label, HPos.CENTER);
-				calendarView.add(label, pos, 0);
-				pos++;
-			}
-		}
-		else if (timeline.getShowVal().equals("Years")) {
+                Label label = new Label(date.format(dayFormatter));
+                label.setPadding(new Insets(1));
+                label.setMaxWidth(Double.MAX_VALUE);
+                label.setStyle("-fx-border-color: transparent transparent black transparent;");
+                label.setTextAlignment(TextAlignment.CENTER);
+                label.setAlignment(Pos.CENTER);
+                calendarView.add(label, pos, 0);
+                pos++;
+            }
+        } else if (timeline.getShowVal().equals("Years")) {
 
             // Create the rows and columns for the gridpane
             for (LocalDate date = start; !date.isAfter(end); date = date.plusYears(1)) {
@@ -100,53 +106,60 @@ public class CalendarView {
             for (LocalDate date = start; !date.isAfter(end); date = date.plusYears(1)) {
 
                 Label label = new Label(date.format(dayFormatter));
+                label.setMaxWidth(Double.MAX_VALUE);
+                label.setStyle("-fx-border-color: transparent transparent black transparent;");
                 label.setPadding(new Insets(1));
+                label.setAlignment(Pos.CENTER);
                 label.setTextAlignment(TextAlignment.CENTER);
-                GridPane.setHalignment(label, HPos.CENTER);
+
                 calendarView.add(label, pos, 0);
                 pos++;
             }
         }
 
-		// Create scrollpane to add the gridpane into and the title label
-		ScrollPane scroller = new ScrollPane(calendarView);
-		scroller.maxWidth(Double.MAX_VALUE);
-        //scroller.prefWidth(1185);
+        // Create scrollpane to add the gridpane into and the title label
+        ScrollPane scroller = new ScrollPane(calendarView);
+        scroller.maxWidth(Double.MAX_VALUE);
+        scroller.setId("scrollerForEvents");
         StackPane displayInfo = new StackPane();
         displayInfo.setAlignment(Pos.CENTER);
-		VBox vContain = new VBox();
-		Label titleLabel = new Label(title);
+        VBox vContain = new VBox();
+        Label titleLabel = new Label(title);
+        titleLabel.setStyle("-fx-text-fill: #e8e8e8;");
         Label startDateLabel = new Label(timeline.getStartDate());
+        startDateLabel.setStyle("-fx-text-fill: #e8e8e8;");
         Label endDateLabel = new Label(timeline.getEndDate());
+        endDateLabel.setStyle("-fx-text-fill: #e8e8e8;");
         displayInfo.getChildren().addAll(startDateLabel, titleLabel, endDateLabel);
-		displayInfo.setAlignment(titleLabel, Pos.CENTER);
-		displayInfo.setAlignment(startDateLabel, Pos.CENTER_LEFT);
-		displayInfo.setAlignment(endDateLabel, Pos.CENTER_RIGHT);
+        displayInfo.setStyle("-fx-background-color: #666666;");
+        StackPane.setAlignment(titleLabel, Pos.CENTER);
+        StackPane.setAlignment(startDateLabel, Pos.CENTER_LEFT);
+        StackPane.setAlignment(endDateLabel, Pos.CENTER_RIGHT);
 
-		// Method to create popover when the timeline label is clicked on and load the fxml file into it
-		titleLabel.setOnMouseClicked(event -> {
+        // Method to create popover when the timeline label is clicked on and load the fxml file into it
+        titleLabel.setOnMouseClicked(event -> {
 
             if (popOver == null || !popOver.isShowing()) {
                 popOver = new PopOver();
                 FXMLLoader loader = new FXMLLoader(CalendarView.class.getResource("ModifyTimeline.fxml"));
 
                 try {
-                    popOver.setArrowLocation(PopOver.ArrowLocation.LEFT_TOP);
+                    //popOver.setArrowLocation(PopOver.ArrowLocation.LEFT_TOP);
                     popOver.setContentNode(loader.load());
                     ModifyTimelineController modifyTimelineController = loader.getController();
                     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     modifyTimelineController.modifyTimelineTitle.setText(timeline.getTitle());
                     modifyTimelineController.modifyTimelineStartDate.setValue(LocalDate.parse(timeline.getStartDate(), dtf));
                     modifyTimelineController.modifyTimelineEndDate.setValue(LocalDate.parse(timeline.getEndDate(), dtf));
-					modifyTimelineController.getModifyTimelineChoiceBox().setValue(timeline.getShowVal());
-					modifyTimelineController.setStartdate();
-					modifyTimelineController.setEnddate();
+                    modifyTimelineController.getModifyTimelineChoiceBox().setValue(timeline.getShowVal());
+                    modifyTimelineController.setStartdate();
+                    modifyTimelineController.setEnddate();
                     modifyTimelineController.time = timeline;
                     modifyTimelineController.popOver = popOver;
 
                     popOver.show(titleLabel);
 
-					// If popover is rightclicked hide it again
+                    // If popover is rightclicked hide it again
                     final PopOver finalPopOver = popOver;
                     popOver.getContentNode().setOnMouseClicked(ev -> {
                         if (ev.getButton() == MouseButton.SECONDARY) {
@@ -160,17 +173,21 @@ public class CalendarView {
         });
 
 
-
-		titleLabel.fontProperty().setValue(new Font(20));
+        titleLabel.fontProperty().setValue(new Font(20));
         startDateLabel.fontProperty().setValue(new Font(20));
         endDateLabel.fontProperty().setValue(new Font(20));
-		vContain.getChildren().add(displayInfo);
-		vContain.setAlignment(Pos.TOP_CENTER);
-		Button addEventBtn = new Button("Add Event");
+        vContain.getChildren().add(displayInfo);
+        vContain.setAlignment(Pos.TOP_CENTER);
+        Button addEventBtn = new Button("Add Event");
+        addEventBtn.setStyle("-fx-background-color: #666666;" + "-fx-text-fill: #e8e8e8;");
+        addEventBtn.setOnMouseEntered(event ->
+                addEventBtn.setStyle("-fx-background-color: #858585;" + "-fx-text-fill: #e8e8e8;"));
+        addEventBtn.setOnMouseExited(event ->
+                addEventBtn.setStyle("-fx-background-color: #666666;" + "-fx-text-fill: #e8e8e8;"));
 
-		// Method to add new event, loads the addevent view and sets some starting values into its controller and
-		// shows it in a new stage
-		addEventBtn.setOnMouseClicked(event -> {
+        // Method to add new event, loads the addevent view and sets some starting values into its controller and
+        // shows it in a new stage
+        addEventBtn.setOnMouseClicked(event -> {
 
             FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("AddEventView.fxml"));
             Parent root = null;
@@ -198,7 +215,11 @@ public class CalendarView {
         });
 
         Button addEventWithoutDurationBtn = new Button("Add Event Without Duration");
-
+        addEventWithoutDurationBtn.setStyle("-fx-background-color: #666666;" + "-fx-text-fill: #e8e8e8;");
+        addEventWithoutDurationBtn.setOnMouseEntered(event ->
+                addEventWithoutDurationBtn.setStyle("-fx-background-color: #858585;" + "-fx-text-fill: #e8e8e8;"));
+        addEventWithoutDurationBtn.setOnMouseExited(event ->
+                addEventWithoutDurationBtn.setStyle("-fx-background-color: #666666;" + "-fx-text-fill: #e8e8e8;"));
 
         // Method to add new event, loads the addevent view and sets some starting values into its controller and
         // shows it in a new stage
@@ -229,10 +250,8 @@ public class CalendarView {
         });
 
 
-
-
-		// Set size of the scrollpane and add it to the vbox and then returns the vbox
-		scroller.setMinHeight(300);
+        // Set size of the scrollpane and add it to the vbox and then returns the vbox
+        scroller.setMinHeight(300);
         scroller.setPrefHeight(300);
         StackPane stackPaneForBtn = new StackPane();
         HBox hboxForButtons = new HBox();
@@ -241,36 +260,38 @@ public class CalendarView {
         hboxForButtons.setAlignment(Pos.CENTER_RIGHT);
         stackPaneForBtn.getChildren().addAll(hboxForButtons);
         stackPaneForBtn.setAlignment(hboxForButtons, Pos.CENTER_RIGHT);
+        stackPaneForBtn.setId("stackpaneForBtns");
 
         stackPaneForBtn.setPadding(new Insets(5, 0, 0, 0));
-		vContain.getChildren().addAll(scroller, stackPaneForBtn);
-		vContain.setPadding(new Insets(15, 5, 15, 5));
-		return vContain;
+        vContain.getChildren().addAll(scroller, stackPaneForBtn);
+        vContain.setPadding(new Insets(15, 5, 15, 5));
+        vContain.setMaxWidth(Double.MAX_VALUE);
+        return vContain;
 
-	}
+    }
 
 
-	// Method to add events into the timeline, loads the eventview fxml file and sets some css properties
-	// and sets starting values into its controller
-	public void event(Event event, int cIndex, int rIndex, int cSpan){
+    // Method to add events into the timeline, loads the eventview fxml file and sets some css properties
+    // and sets starting values into its controller
+    public void event(Event event, int cIndex, int rIndex, int cSpan) {
 
-			FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("EventView.fxml"));
-			try {
-                calendarView.add(fxmlLoader.load(), cIndex, rIndex, cSpan, 1);
-				EventController eventController = fxmlLoader.getController();
-				eventController.eventBox.setStyle("-fx-background-color: " + event.getColor() + ";" +
-						"-fx-border-color: black;" + "-fx-background-radius: 10;" +
-						"-fx-border-radius: 10;");
-                eventController.eventBox.setMaxWidth(Double.MAX_VALUE);
-				eventController.eventName.setText(event.getName());
-                eventController.event = event;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
+        FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("EventView.fxml"));
+        try {
+            calendarView.add(fxmlLoader.load(), cIndex, rIndex, cSpan, 1);
+            EventController eventController = fxmlLoader.getController();
+            eventController.eventBox.setStyle("-fx-background-color: " + event.getColor() + ";" +
+                    "-fx-border-color: black;" + "-fx-background-radius: 10;" +
+                    "-fx-border-radius: 10;");
+            eventController.eventBox.setMaxWidth(Double.MAX_VALUE);
+            eventController.eventName.setText(event.getName());
+            eventController.event = event;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-    public void eventWithoutDuration(EventWithoutDuration eventWithoutDuration, int cIndex, int rIndex){
+    public void eventWithoutDuration(EventWithoutDuration eventWithoutDuration, int cIndex, int rIndex) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(CalendarView.class.getResource("EventNoDurationView.fxml"));
         try {
@@ -286,7 +307,11 @@ public class CalendarView {
             e.printStackTrace();
         }
     }
-		
+
+
+    public static void setMainStage(Stage stage) {
+        mainStage = stage;
+    }
 }
 
 

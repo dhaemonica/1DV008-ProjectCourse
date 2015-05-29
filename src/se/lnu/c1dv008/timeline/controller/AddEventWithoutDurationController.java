@@ -50,7 +50,6 @@ public class AddEventWithoutDurationController {
     public Stage addEventStage;
 
 
-
     @FXML
     private void onCreate() {
 

@@ -1,10 +1,11 @@
 package se.lnu.c1dv008.timeline.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "eventsWithoutDuration")
-public class EventWithoutDuration {
+public class EventWithoutDuration extends AllEvents{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,6 +75,11 @@ public class EventWithoutDuration {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+
+    public int compareTo(EventWithoutDuration o) {
+        return LocalDate.parse(this.getStartTime()).compareTo(LocalDate.parse(o.getStartTime()));
     }
 
 }

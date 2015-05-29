@@ -44,7 +44,6 @@ public class PopOverController {
     public Event event;
 
 
-
     @FXML
     private void onUpdateClick() {
 

@@ -54,7 +54,6 @@ public class AddEventController {
     public Stage addEventStage;
 
 
-
     @FXML
     private void onCreate() {
 

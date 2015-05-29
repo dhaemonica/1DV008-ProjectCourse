@@ -27,9 +27,9 @@
                   <Font name="Ubuntu" size="42.0" />
                </font>
             </Label>
-            <DatePicker fx:id="addEventStartDate" onAction="#setStartdate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <DatePicker fx:id="addEventEndDate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <TextArea fx:id="addEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" GridPane.columnSpan="2" GridPane.rowIndex="4">
+            <DatePicker fx:id="addEventStartDate" editable="false" onAction="#setStartdate" promptText="Start Date" stylesheets="@controlstyling.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <DatePicker fx:id="addEventEndDate" editable="false" promptText="End Date" stylesheets="@controlstyling.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <TextArea fx:id="addEventDescription" prefHeight="200.0" prefWidth="200.0" promptText="Event Description" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <font>
                   <Font name="Ubuntu" size="19.0" />
                </font>
@@ -39,7 +39,7 @@
             </TextArea>
             <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                <children>
-                  <Button fx:id="addEventCreate" mnemonicParsing="false" onMouseClicked="#onCreate" text="Create">
+                  <Button fx:id="addEventCreate" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onCreate" stylesheets="@controlstyling.css" text="Create">
                      <HBox.margin>
                         <Insets bottom="30.0" left="12.0" right="12.0" top="12.0" />
                      </HBox.margin>
@@ -47,7 +47,7 @@
                         <Font name="Ubuntu" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addEventCancel" mnemonicParsing="false" onMouseClicked="#onCancel" text="Cancel">
+                  <Button fx:id="addEventCancel" cancelButton="true" mnemonicParsing="false" onMouseClicked="#onCancel" stylesheets="@controlstyling.css" text="Cancel">
                      <HBox.margin>
                         <Insets bottom="12.0" right="30.0" top="12.0" />
                      </HBox.margin>
@@ -58,7 +58,7 @@
                </children>
             </HBox>
             <TextField fx:id="addEventTitle" maxWidth="300.0" promptText="Event Title" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <ColorPicker fx:id="addEventColorPicker" promptText="Background Color" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+            <ColorPicker fx:id="addEventColorPicker" promptText="Background Color" stylesheets="@controlstyling.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP" />
             <Label fx:id="errorText" text="Please make sure all values is filled in!" textFill="RED" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="Ubuntu" size="18.0" />

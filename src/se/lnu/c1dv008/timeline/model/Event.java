@@ -1,10 +1,11 @@
 package se.lnu.c1dv008.timeline.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event extends AllEvents {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +32,7 @@ public class Event {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -86,5 +87,8 @@ public class Event {
 		this.id = id;
 	}
 
+	public int compareTo(Event o) {
+		return LocalDate.parse(this.getStartTime()).compareTo(LocalDate.parse(o.getStartTime()));
+	}
 }
 

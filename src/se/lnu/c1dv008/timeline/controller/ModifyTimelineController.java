@@ -7,6 +7,7 @@ import javafx.util.Callback;
 import org.controlsfx.control.PopOver;
 import se.lnu.c1dv008.timeline.dao.DB;
 import se.lnu.c1dv008.timeline.model.Event;
+import se.lnu.c1dv008.timeline.model.EventWithoutDuration;
 import se.lnu.c1dv008.timeline.model.Timeline;
 
 import java.io.IOException;
@@ -62,12 +63,19 @@ public class ModifyTimelineController {
     @FXML
     private void deleteTimeline() {
         List<Event> events = DB.events().findAll();
+        List<EventWithoutDuration> eventWithoutDurations = DB.eventsWithoutDuration().findAll();
         for (Event e : events) {
             if (e.getTimelineId() == time.getId()) {
                 DB.events().delete(e);
             }
         }
+        for (EventWithoutDuration eventWithoutDuration : eventWithoutDurations) {
+            if (eventWithoutDuration.getTimelineId() == time.getId()) {
+                DB.eventsWithoutDuration().delete(eventWithoutDuration);
+            }
+        }
         DB.timelines().delete(time);
+        TimelineSelectController.timelineSelectController.removeFromTimelinesSelected(time);
         TimelineController.timeLineController.draw();
         popOver.hide();
     }

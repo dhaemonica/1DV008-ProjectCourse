@@ -21,16 +21,16 @@
   </rowConstraints>
    <children>
       <TextField fx:id="modifyTimelineTitle" maxWidth="300.0" prefWidth="200.0" promptText="Timeline Title" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <DatePicker fx:id="modifyTimelineStartDate" onAction="#setStartdate" promptText="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <DatePicker fx:id="modifyTimelineEndDate" onAction="#setEnddate" promptText="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <DatePicker fx:id="modifyTimelineStartDate" editable="false" onAction="#setStartdate" promptText="Start Date" stylesheets="@controlstyling.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <DatePicker fx:id="modifyTimelineEndDate" editable="false" onAction="#setEnddate" promptText="End Date" styleClass="date-picker" stylesheets="@controlstyling.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Label text="Timeline" GridPane.columnSpan="2" GridPane.halignment="CENTER">
          <font>
             <Font name="Ubuntu" size="40.0" />
          </font>
       </Label>
-      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
          <children>
-            <Button fx:id="modifyTimelineUpdateBtn" mnemonicParsing="false" onMouseClicked="#updateTimeline" text="Update">
+            <Button fx:id="modifyTimelineUpdateBtn" defaultButton="true" mnemonicParsing="false" onMouseClicked="#updateTimeline" stylesheets="@controlstyling.css" text="Update">
                <font>
                   <Font name="Ubuntu" size="20.0" />
                </font>
@@ -38,12 +38,12 @@
                   <Insets bottom="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="modifyTimelineDeleteBtn" mnemonicParsing="false" onMouseClicked="#deleteTimeline" text="Delete">
+            <Button fx:id="modifyTimelineDeleteBtn" cancelButton="true" mnemonicParsing="false" onMouseClicked="#deleteTimeline" stylesheets="@controlstyling.css" text="Delete">
                <font>
                   <Font name="Ubuntu" size="20.0" />
                </font>
                <HBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                </HBox.margin>
             </Button>
          </children>
@@ -56,6 +56,14 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </GridPane.margin>
       </Label>
-      <ChoiceBox fx:id="modifyTimelineChoiceBox" prefWidth="150.0" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <ChoiceBox fx:id="modifyTimelineChoiceBox" prefWidth="150.0" stylesheets="@controlstyling.css" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Label text="(Rightclick to close)" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="10.0" left="20.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Ubuntu" size="12.0" />
+         </font>
+      </Label>
    </children>
 </GridPane>

@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.TimelineController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lnu.c1dv008.timeline.controller.TimelineController">
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="29.0" prefHeight="771.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="29.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="771.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox fx:id="vboxForGridpane" prefHeight="769.0" prefWidth="1198.0" />
+            <VBox fx:id="vboxForGridpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="752.0" prefWidth="1180.0" />
          </content>
       </ScrollPane>
    </children>

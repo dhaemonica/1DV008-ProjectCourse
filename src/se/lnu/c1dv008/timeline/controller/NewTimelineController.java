@@ -46,9 +46,8 @@ public class NewTimelineController {
     public Stage newTimelineStage;
 
     @FXML
-    void initialize() {
+    private void initialize() {
         timelineChoiceBox.getItems().addAll("Days", "Months", "Years");
-
     }
 
 
