@@ -9,7 +9,7 @@
    <property name="hibernate.connection.url">jdbc:sqlite:timeline.db</property>
    <property name="hibernate.connection.username">root</property>
    <property name="hibernate.connection.password">root</property>
-   <!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
+   <property name="hibernate.hbm2ddl.auto">create</property>
    <property name="show_sql">true</property>
    <property name="hibernate.current_session_context_class">thread</property>
    <mapping class="se.lnu.c1dv008.timeline.model.Event"/>
